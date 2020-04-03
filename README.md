@@ -101,6 +101,12 @@ Please notice that the possition to add 10 extra values must be different, they 
 Below is a schematic description of algorithm 3:<br>
 ![algorithm 3 figure 1](/images/algorithm3.png)<br>
 ![algorithm 3 figure 2](/images/algorithm3_2.png)<br>
+Algorithm1 with static expert(alpha=0)'s overall prediction accuracy for 8 data settings is:<br>
+[0.66, 0.7, 0.67, 0.83, 0.8, 0.75, 0.67, 0.77]<br>
+For fixed share alpha, I set alpha = 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, which is the shifting ratio of each stream data.<br>
+Algorithm1 with fixed share alpha's overall prediction accuracy for 8 data settings is:<br>
+[0.95, 0.89, 0.88, 0.9, 0.94, 0.92, 0.89, 0.84]<br>
+We can see the performance has increased hugely even in static expert setting and it's almost perfert in all data settings.<br>
 
 
 
