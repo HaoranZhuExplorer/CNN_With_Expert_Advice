@@ -21,15 +21,16 @@ step3: update loss and update middle weights<br>
 step4: update shared weights<br>
 
 
-<center>![Expert Advice](/images/original_expert_advice_algorithm.png)<center>
+![Expert Advice](/images/original_expert_advice_algorithm.png)
+Figure from [1]<br>
 
 In this code settings, we simply have two experts: one is a trained CNN with testing accuracy of 0.99 for mnist dataset, another is a trained CNN with testing accuray of 0.91. The stream data is from testing dataset of MNIST and Fashion MNIST.
 
 But in order to apply expert advice algorithm, we need to do some changes to the original algorithm. Since the weights updating process is based on changes of loss between predictions and real target y_t, the orignal range of y_t is in range [0,1]. <br>
 We can compute the loss by applying squared loss, relative entropy or Hellinger loss.<br>
 
-<center>![Expert Advice](/images/loss.png)</center>
-<center>Figure from professor Anna Choromanska's class slides[3]</center>
+[Expert Advice](/images/loss.png)
+Figure from professor Anna Choromanska's class slides[3]<br>
 
 What's different from orginal range is, the predictions of the two experts is in range [0,1,2,3,4,5,6,7,8,9]. Each prediction represents the data belongs to a specific number in MNIST dataset or specific fashion item in Fashion MNIST dataset. The original loss function does not hold any more. Thus, we need to do some changes to loss functions.
 
