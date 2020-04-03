@@ -28,6 +28,7 @@ But in order to apply expert advice algorithm, we need to do some changes to the
 We can compute the loss by applying squared loss, relative entropy or Hellinger loss.<br>
 
 ![Expert Advice](/images/loss.png)
+Figure from professor Anna Choromanska's class slides[3]
 
 What's different from orginal range is, the predictions of the two experts is in range [0,1,2,3,4,5,6,7,8,9]. Each prediction represents the data belongs to a specific number in MNIST dataset or specific fashion item in Fashion MNIST dataset. The original loss function does not hold any more. Thus, we need to do some changes to loss functions.
 
@@ -36,3 +37,4 @@ What's different from orginal range is, the predictions of the two experts is in
 References<br>
 [1] C. Monteleoni, Learning with Online Constraints: Shifting Concepts and Active Learning,” PhD Thesis, MIT, 2006.<br>
 [2] M. Herbster and Manfred K. Warmuth, Tracking the best expert, Machine Learning, 32:151178, 1998.<br>
+[3] Slides of professor Anna Choromanska's Advanced Machine Learning class at NYU.<br>
