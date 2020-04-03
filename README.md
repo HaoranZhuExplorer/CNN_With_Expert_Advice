@@ -32,13 +32,14 @@ We can compute the loss by applying squared loss, relative entropy or Hellinger 
 ![loss functions](/images/loss.png)<br>
 Figure from professor Anna Choromanska's class slides[3]<br>
 
+### First thought
 What's different from the orginal range is, predictions of the two experts is in range [0,1,2,3,4,5,6,7,8,9]. Each prediction represents the data belongs to a specific number in MNIST dataset or specific fashion item in Fashion MNIST dataset. The original loss function does not hold any more. Thus, we need to do some changes to loss functions.
 
 The first thought of mine is normalization: We can normalize the predictions into range [0,1], which means the orignal prediction is divided by 10, the new range of two experts predictions will be [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9].<br>
 
 However, this idea makes loss functions meaningless: the number of prediction does not relate to the 'value' of the prediction. For example, in the first case, the first expert predicts 3, target is 4, which may mean the experts predict data is 'number 3 in MNIST' while the real target is 'number 4 in Fashion MNIST'.<br>
 
-While in the second case, the two experts predict 3, target is 5, which may means the second expert predicts data is 'shoes' in Fashion MNIST while the real class is  'pants' in Fashion MNIST. If we normalzie the predictions and insert them into loss functions, we will find the loss of first case is smaller, which means the first prediction is more accurate than the second prediction. While actually it's not true, the two predictions of corrensponding data class are all wrong, the loss should be the same.<br>
+While in the second case, the two experts predict 3, target is 5, which may means the second expert predicts data is 'shoes' in Fashion MNIST while the real class is  'pants' in Fashion MNIST. If we normalzie the predictions and insert them into loss functions, we will find the loss of first case is smaller, which means the first prediction is more accurate than the second prediction. While actually it's not true, the two predictions of corrensponding data class are all wrong, the loss should be the same. Thus, normalization is wrong<br>
 
 References<br>
 [1] C. Monteleoni, Learning with Online Constraints: Shifting Concepts and Active Learning,” PhD Thesis, MIT, 2006.<br>
