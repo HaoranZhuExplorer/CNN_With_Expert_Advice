@@ -29,7 +29,7 @@ In this code settings, we simply have two experts: one is a trained CNN with tes
 But in order to apply expert advice algorithm, we need to do some changes to the original algorithm. Since the weights updating process is based on changes of loss between predictions and real target y_t, the orignal range of y_t is in range [0,1]. <br>
 We can compute the loss by applying squared loss, relative entropy or Hellinger loss.<br>
 
-[loss functions](/images/loss.png)<br>
+![loss functions](/images/loss.png)<br>
 Figure from professor Anna Choromanska's class slides[3]<br>
 
 What's different from orginal range is, the predictions of the two experts is in range [0,1,2,3,4,5,6,7,8,9]. Each prediction represents the data belongs to a specific number in MNIST dataset or specific fashion item in Fashion MNIST dataset. The original loss function does not hold any more. Thus, we need to do some changes to loss functions.
