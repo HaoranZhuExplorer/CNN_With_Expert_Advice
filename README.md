@@ -115,6 +115,11 @@ We can see the performance has increased hugely even in static expert setting an
 ![performance](/images/performance.png)<br>
 For static expert in all algorithms, alpha=0.<br>
 For fixed share expert in all algorithms, alpha is the same when data setting is the same. For 8 data settings, alpha = 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, which is the shifting ratio of each stream data.<br>
+We can see algorithm 3 with fixed share alpha expert advice outperforms among all algorithms in all data settings.<br> 
+The overall accuaray is around 0.9, I think it will be even higher if experts' accuray is higher.(Notice that accuray of expert 2 is only 0.91)<br>
+
+
+
 
 
 
