@@ -80,7 +80,7 @@ What about weighted results? Since the two 10*1 vectors are all possibilities of
 Below is a schematic description of algorithm 2:<br>
 ![algorithm 2 figure 1](/images/algorithm2.png)<br>
 ![algorithm 2 figure 2](/images/algorithm2_2.png)<br>
-Algorithm1 with static expert(alpha=0)'s overall prediction accuracy for 8 data settings is:<br>
+Algorithm2 with static expert(alpha=0)'s overall prediction accuracy for 8 data settings is:<br>
 [0.46, 0.61, 0.48, 0.83, 0.49, 0.7, 0.51, 0.75]<br>
 For fixed share alpha, I set alpha = 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, which is the shifting ratio of each stream data.<br>
 Algorithm1 with fixed share alpha's overall prediction accuracy for 8 data settings is:<br>
@@ -104,7 +104,7 @@ Please notice that the possition to add 10 extra values must be different, they 
 Below is a schematic description of algorithm 3:<br>
 ![algorithm 3 figure 1](/images/algorithm3.png)<br>
 ![algorithm 3 figure 2](/images/algorithm3_2.png)<br>
-Algorithm1 with static expert(alpha=0)'s overall prediction accuracy for 8 data settings is:<br>
+Algorithm3 with static expert(alpha=0)'s overall prediction accuracy for 8 data settings is:<br>
 [0.66, 0.7, 0.67, 0.83, 0.8, 0.75, 0.67, 0.77]<br>
 For fixed share alpha, I set alpha = 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, which is the shifting ratio of each stream data.<br>
 Algorithm1 with fixed share alpha's overall prediction accuracy for 8 data settings is:<br>
