@@ -59,16 +59,25 @@ The weights of experts are initialized the same as the oringinal algorithm: 1/n.
 Since weight may not be an integar, we can not simply make the weighted result of each experts' predictions as the final weighted prediction. For example, prediction of expert 1 for Fashion mnist is 3, which means 'shoes', prediction of expert 2 for MNIST is 7, which means 'number 7 in MNIST', weights for the two experts are all 1/2. The weighted result 1/2\*3+1/2\*7=5 makes no sense, because numbers in MNIST and items in Fashion mnist are not the same classes, we can not simply get weighted sum of two different classes.<br>
 So in algorithm1, the final prediction will apply the prediction of expert which has highest weight.<br>
 All other steps are the same as the oringal expert advice algorithm.<br>
-Below is the schematic description of algorithm 1:<br>
+Below is a schematic description of algorithm 1:<br>
 ![algorithm 1 figure 1](/images/algorithm1.png)<br>
-![algorithm 2 figure 2](/images/algorithm1_2.png)<br><br>
+![algorithm 1 figure 2](/images/algorithm1_2.png)<br><br>
 Algorithm1 with static expert(alpha=0)'s overall prediction accuracy for 8 data settings is:
 [0.5, 0.64, 0.5, 0.23, 0.5, 0.36, 0.5, 0.77]<br>
 For fixed share alpha, I set alpha = 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, which is the shifting ratio of each stream data.<br>
 Algorithm1 with fixed share alpha's overall prediction accuracy for 8 data settings is:
 [0.5, 0.64, 0.5, 0.23, 0.5, 0.36, 0.5, 0.77]
 
+## Algorithm 2
+The performance of algorithm when is no better than keep using one expert for all trials, this is because for simple variations of 0/1 loss, weights for different experts are difficult to change. If you investigate of weights, you can see weights are easily to converge at 0.5/0.5, which means it can not update as it should be.<br>
+In order to avoid drawbacks of Algorithm 1, I think a better solution is to design a better loss function, rather than 0/1 loss.<br>
+Thus here comes algorithm2: Instead of using prediction of specific class in each expert as input to loss function, I use two experts' last layer softmax 1\*10 output vector as input to loss function.<br>
+Loss function is set to be MSE loss of two input vectors.<br>
+What about weighted results? Since the two 10*1 vectors are all possibilities of different classes in different dataset, simply get the weigthed sum of two vectors is meanoingless: you can not add MNIST features and Fashion MNIST features together. I choose expert which has highest weight as best expert and choose the class with highest value in 10*1 softmax output vector as the final prediction.<br>
+Below is a schematic description of algorithm 2:<br>
+![algorithm 2 figure 1](/images/algorithm2.png)<br>
 
+ 
 
 References<br>
 [1] C. Monteleoni, Learning with Online Constraints: Shifting Concepts and Active Learning,” PhD Thesis, MIT, 2006.<br>
