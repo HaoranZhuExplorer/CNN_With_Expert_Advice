@@ -62,11 +62,11 @@ All other steps are the same as the oringal expert advice algorithm.<br>
 Below is a schematic description of algorithm 1:<br>
 ![algorithm 1 figure 1](/images/algorithm1.png)<br>
 ![algorithm 1 figure 2](/images/algorithm1_2.png)<br><br>
-Algorithm1 with static expert(alpha=0)'s overall prediction accuracy for 8 data settings is:
+Algorithm1 with static expert(alpha=0)'s overall prediction accuracy for 8 data settings is:<br>
 [0.5, 0.64, 0.5, 0.23, 0.5, 0.36, 0.5, 0.77]<br>
 For fixed share alpha, I set alpha = 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, which is the shifting ratio of each stream data.<br>
-Algorithm1 with fixed share alpha's overall prediction accuracy for 8 data settings is:
-[0.5, 0.64, 0.5, 0.23, 0.5, 0.36, 0.5, 0.77]
+Algorithm1 with fixed share alpha's overall prediction accuracy for 8 data settings is:<br>
+[0.5, 0.64, 0.5, 0.23, 0.5, 0.36, 0.5, 0.77]<br>
 
 ## Algorithm 2
 The performance of algorithm when is no better than keep using one expert for all trials, this is because for simple variations of 0/1 loss, weights for different experts are difficult to change. If you investigate of weights, you can see weights are easily to converge at 0.5/0.5, which means it can not update as it should be.<br>
@@ -77,7 +77,12 @@ What about weighted results? Since the two 10*1 vectors are all possibilities of
 Below is a schematic description of algorithm 2:<br>
 ![algorithm 2 figure 1](/images/algorithm2.png)<br>
 ![algorithm 2 figure 2](/images/algorithm2_2.png)<br>
- 
+Algorithm1 with static expert(alpha=0)'s overall prediction accuracy for 8 data settings is:<br>
+[0.46, 0.61, 0.48, 0.83, 0.49, 0.7, 0.51, 0.75]<br>
+For fixed share alpha, I set alpha = 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, which is the shifting ratio of each stream data.<br>
+Algorithm1 with fixed share alpha's overall prediction accuracy for 8 data settings is:<br>
+[0.95, 0.88, 0.82, 0.87, 0.94, 0.91, 0.87, 0.73]<br>
+We can see the performance has increased hugely with exceptions for a few classes.<br>
 
 References<br>
 [1] C. Monteleoni, Learning with Online Constraints: Shifting Concepts and Active Learning,” PhD Thesis, MIT, 2006.<br>
