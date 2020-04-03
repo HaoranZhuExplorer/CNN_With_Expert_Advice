@@ -76,7 +76,7 @@ The performance of algorithm 1 which is no better than keep using one expert for
 In order to avoid drawbacks of Algorithm 1, I think a better solution is to design a better loss function, rather than 0/1 loss.<br>
 Thus here comes algorithm2: Instead of using prediction of specific class in each expert as input to loss function, I use two experts' last layer softmax 1\*10 output vector as input to loss function.<br>
 Loss function is set to be MSE loss of two input vectors.<br>
-What about weighted results? Since the two 10*1 vectors are all possibilities of different classes in different dataset, simply get the weigthed sum of two vectors is meaningless: you can not add MNIST features and Fashion MNIST features together. I choose expert which has highest weight as best expert and choose the class with highest value in 10*1 softmax output vector as the final prediction.<br>
+What about weighted results? Since the two 10\*1 vectors are all possibilities of different classes in different dataset, simply get the weigthed sum of two vectors is meaningless: you can not add MNIST features and Fashion MNIST features together. I choose expert which has highest weight as best expert and choose the class with highest value in 10*1 softmax output vector as the final prediction.<br>
 Below is a schematic description of algorithm 2:<br>
 ![algorithm 2 figure 1](/images/algorithm2.png)<br>
 ![algorithm 2 figure 2](/images/algorithm2_2.png)<br>
