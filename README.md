@@ -8,7 +8,7 @@ CNN with expert advice is used for the following online learning scenario: the d
 ## How to use it
 You can see 'script.py' or 'script.ipynb' for code details.<br>
 For 'script.py', simply run:<br>
-`python script.py`
+`python script.py`<br>
 For 'script.ipynb', you can import it into appropriate apps to run it.
 
 ## Brief introductions of my algorithms
