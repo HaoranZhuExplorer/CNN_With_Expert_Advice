@@ -1,6 +1,6 @@
 # CNN_With_Expert_Advice
 
-This is code implementation of CNN model with expert advice in online settings.
+This is code implementation of CNN models with expert advice in online settings.
 
 CNN with expert advice is used for the following online learning scenario: the data is coming from different datasets, in a stream structure and occurs one by one in a series of trials. We are given several experts for each dataset.(we call them experts, because each of them is good at make predictions for a specific dataset, for example: different CNNs for different datasets). For each trial, we don't know which dataset the trial data is comming from until we make predictions for each trial. Our goal is to maximize the overall accuracy of our predictions. 
 
