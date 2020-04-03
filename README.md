@@ -42,7 +42,12 @@ However, this idea makes loss functions meaningless: the number of prediction do
 While in the second case, the two experts predict 3, target is 5, which may means the second expert predicts data is 'shoes' in Fashion MNIST while the real class is  'pants' in Fashion MNIST. If we normalzie the predictions and insert them into loss functions, we will find the loss of first case is smaller, which means the first prediction is more accurate than the second prediction. While actually it's not true, the two predictions of corrensponding data class are all wrong, the loss should be the same. Thus, normalization is wrong<br>
 
 ## Algorithm 1
-Thus there comes algorithm 1: I change the loss function to 0/1 loss. If prediction of an expert is not the same as real target, then loss will be the same, the value of 1. Otherwise, prediction is correct, the value of 0.
+Thus there comes algorithm 1: I change the loss function to 0/1 loss. If prediction of an expert is not the same as real target, then loss will be the same, loss is 1. Otherwise, prediction is correct, loss will be 0.<br>
+The weights of experts are initialized the same as the oringinal algorithm: 1/n.
+Since weight may not be an integar, we can not simply make the weighted result of each experts' predictions as the final weighted prediction. For example, prediction of expert 1 for Fashion mnist is 3, which means 'shoes', prediction of expert 2 for MNIST is 7, which means 'number 7 in MNIST', weights for the two experts are all 1/2. The weighted result 1/2*3+1/2*7=5 makes no sense, because numbers in MNIST and items in Fashion mnist are not the same classes, we can not simply get weighted sum of two different classes.<br>
+So in algorithm1, the final prediction apply the prediction of expert which has highest weight.<br>
+All other steps are the same as the oringal expert advice algorithm.<br>
+
 
 
 References<br>
