@@ -48,9 +48,9 @@ We can compute the loss by applying squared loss, relative entropy or Hellinger 
 Figure from professor Anna Choromanska's class slides[3]<br>
 
 ### First thought
-What's different from the orginal range is, predictions of the two experts is in range [0,1,2,3,4,5,6,7,8,9]. Each prediction represents the data belongs to a specific number in MNIST dataset or specific fashion item in Fashion MNIST dataset. The original loss function does not hold any more. Thus, we need to do some changes to loss functions.
+What's different from the original range is, predictions of the two experts is in range [0,1,2,3,4,5,6,7,8,9]. Each prediction represents the data belongs to a specific number in MNIST dataset or specific fashion item in Fashion MNIST dataset. The original loss function does not hold any more. Thus, we need to do some changes to loss functions.
 
-The first thought of mine is normalization: We can normalize the predictions into range [0,1], which means the orignal prediction is divided by 10, the new range of two experts predictions will be [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9].<br>
+The first thought of mine is normalization: We can normalize the predictions into range [0,1], which means the original prediction is divided by 10, the new range of two experts predictions will be [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9].<br>
 
 However, this idea makes loss functions meaningless: the number of prediction does not relate to the 'value' of the prediction. For example, in the first case, the first expert predicts 3, target is 4, which may mean the experts predict data is 'number 3 in MNIST' while the real target is 'number 4 in Fashion MNIST'.<br>
 
@@ -76,7 +76,7 @@ The performance of algorithm 1 which is no better than keep using one expert for
 In order to avoid drawbacks of Algorithm 1, I think a better solution is to design a better loss function, rather than 0/1 loss.<br>
 Thus here comes algorithm2: Instead of using prediction of specific class in each expert as input to loss function, I use two experts' last layer softmax 1\*10 output vector as input to loss function.<br>
 Loss function is set to be MSE loss of two input vectors.<br>
-What about weighted results? Since the two 10*1 vectors are all possibilities of different classes in different dataset, simply get the weigthed sum of two vectors is meanoingless: you can not add MNIST features and Fashion MNIST features together. I choose expert which has highest weight as best expert and choose the class with highest value in 10*1 softmax output vector as the final prediction.<br>
+What about weighted results? Since the two 10*1 vectors are all possibilities of different classes in different dataset, simply get the weigthed sum of two vectors is meaningless: you can not add MNIST features and Fashion MNIST features together. I choose expert which has highest weight as best expert and choose the class with highest value in 10*1 softmax output vector as the final prediction.<br>
 Below is a schematic description of algorithm 2:<br>
 ![algorithm 2 figure 1](/images/algorithm2.png)<br>
 ![algorithm 2 figure 2](/images/algorithm2_2.png)<br>
@@ -88,7 +88,7 @@ Algorithm1 with fixed share alpha's overall prediction accuracy for 8 data setti
 We can see the performance has increased hugely with exceptions for few classes.<br>
 
 ### Algorithm 3
-Although performance of algorithm 2 has increased hugely, it's still perfect for few classes. I guess the possibile reason is: in algorithm 2, we always take best experts' prediction into final consideration, never get a weighted result from other experts.<br> 
+Although performance of algorithm 2 has increased hugely, it's still perfect for few classes. I guess the possible reason is: in algorithm 2, we always take best experts' prediction into final consideration, never get a weighted result from other experts.<br> 
 Think about the following circumstance: <br>
 we have two experts, expert 1 has higher weight than expert 2, suppose expert 1's weight is 0.51 expert 2's weight is 0.49. But the inner possibility of classes in expert 1 is realatively equal. Suppose the class with highest possibility is 0.2.<br>
 While expert 2's inner possibilities of classes differ hugely, the highest possibility of a class in expert 2 is 0.99.<br>
@@ -100,7 +100,7 @@ Before the output of expert1 is 10*1 vector, now I add extra 10 values in the ve
 Now the vectors become possibility of all classes in all experts. Since expert1 is not designed for classes in expert 2, we just simply suppose the possibility for classes of expert2 is 0 in expert1's prediction.<br>
 And we add extra 10 values in expert2's 10*1 vector:
 [p2_1, p2_2, ..., p2_10] -> [0, 0, 0, ..., 0, p2_1, p2_2, ..., p2_10]<br>
-Please notice that the possition to add 10 extra values must be different, they need to be added to the front of vector.<br>
+Please notice that the position to add 10 extra values must be different, they need to be added to the front of vector.<br>
 Below is a schematic description of algorithm 3:<br>
 ![algorithm 3 figure 1](/images/algorithm3.png)<br>
 ![algorithm 3 figure 2](/images/algorithm3_2.png)<br>
@@ -109,25 +109,25 @@ Algorithm3 with static expert(alpha=0)'s overall prediction accuracy for 8 data 
 For fixed share alpha, I set alpha = 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, which is the shifting ratio of each stream data.<br>
 Algorithm1 with fixed share alpha's overall prediction accuracy for 8 data settings is:<br>
 [0.95, 0.89, 0.88, 0.9, 0.94, 0.92, 0.89, 0.84]<br>
-We can see the performance has increased hugely even in static expert setting and it's almost perfert in all data settings.<br>
+We can see the performance has increased hugely even in static expert setting and it's almost perfect in all data settings.<br>
 
 ## Performance comparisons of different algorithms
 ![performance](/images/performance.png)<br>
 For static expert in all algorithms, alpha=0.<br>
 For fixed share expert in all algorithms, alpha is the same when data setting is the same. For 8 data settings, alpha = 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, which is the shifting ratio of each stream data.<br>
 We can see algorithm 3 with fixed share alpha expert advice outperforms among all algorithms in all data settings.<br> 
-The overall accuaray is around 0.9, I think it will be even higher if experts' accuray is higher.(Notice that accuray of expert 2 is only 0.91)<br>
+The overall accuracy is around 0.9, I think it will be even higher if experts' accuracy is higher.(Notice that accuracy of expert 2 is only 0.91)<br>
 
 ## Beat the outlier algorithm
-After doing experiments with the abolve algorithms, I come up with a simple and straight forward algorithm to beat all data settings: although we can not see the target value for current trial t before we make predictions, we know the target value for previous trial t-1.<br>
+After doing experiments with the above algorithms, I come up with a simple and straight forward algorithm to beat all data settings: although we can not see the target value for current trial t before we make predictions, we know the target value for previous trial t-1.<br>
 How about at the beginning use a random expert as final prediction, then as times moves on, switch experts to the right one according to previous target value y_(t-1)?<br>
 This outlier algorithm will performed quite well in all current data settings without automatically learning how to update weights, because it will use the correct expert in all trials except for cases that shift experts.<br>
-The scenrio to beat this outlier algorithm is the scenrio which shifts data from different dataset frequently.<br>
-We now considering an extream scenrio: data shifts one after another, which means, one data from MNIST, followed by one data from Fashion MNIST, followed by one data from MNIST...<br>
-Accuracy of the outlier algorithm is 0 because it's always choosing the wrong expert. This extream scenrio will completely beat the outlier algorithm<br>
+The scenrio to beat this outlier algorithm is the scenario which shifts data from different dataset frequently.<br>
+We now considering an extreme scenario: data shifts one after another, which means, one data from MNIST, followed by one data from Fashion MNIST, followed by one data from MNIST...<br>
+Accuracy of the outlier algorithm is 0 because it's always choosing the wrong expert. This extreme scenario will completely beat the outlier algorithm<br>
 How about performance for the above algorithms?<br>
 ![performance](/images/performance_extream_case.png)<br>
- We can see algorithm3 still performs best among all algorithms, this algorithm is robust even to extream case.<br>
+ We can see algorithm3 still performs best among all algorithms, this algorithm is robust even to extreme case.<br>
 
 
 
