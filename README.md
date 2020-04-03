@@ -72,7 +72,7 @@ Algorithm1 with fixed share alpha's overall prediction accuracy for 8 data setti
 [0.5, 0.64, 0.5, 0.23, 0.5, 0.36, 0.5, 0.77]<br>
 
 ### Algorithm 2
-The performance of algorithm 1 when is no better than keep using one expert for all trials, this is because for simple variations of 0/1 loss, weights for different experts are difficult to change. If you investigate of weights, you can see weights are easily to converge at 0.5/0.5, which means it can not update as it should be.<br>
+The performance of algorithm 1 which is no better than keep using one expert for all trials, this is because for simple variations of 0/1 loss, weights for different experts are difficult to change. If you investigate of weights, you can see weights are easily to converge at 0.5/0.5, which means it can not update as it should be.<br>
 In order to avoid drawbacks of Algorithm 1, I think a better solution is to design a better loss function, rather than 0/1 loss.<br>
 Thus here comes algorithm2: Instead of using prediction of specific class in each expert as input to loss function, I use two experts' last layer softmax 1\*10 output vector as input to loss function.<br>
 Loss function is set to be MSE loss of two input vectors.<br>
