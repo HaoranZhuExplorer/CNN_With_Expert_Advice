@@ -121,7 +121,7 @@ The overall accuaray is around 0.9, I think it will be even higher if experts' a
 ## Beat the outlier algorithm
 After doing experiments with the abolve algorithms, I come up with a simple and straight forward algorithm to beat all data settings: although we can not see the target value for current trial t before we make predictions, we know the target value for previous trial t-1.<br>
 How about at the beginning use a random expert as final prediction, then as times moves on, switch experts to the right one according to previous target value y_(t-1)?<br>
-This outlier algorithm will performed quite well in all current data settings without automatically learning how to update weights, because it will use the correct expert in all trials except for cases that shifting experts.<br>
+This outlier algorithm will performed quite well in all current data settings without automatically learning how to update weights, because it will use the correct expert in all trials except for cases that shift experts.<br>
 The scenrio to beat this outlier algorithm is the scenrio which shifts data from different dataset frequently.<br>
 We now considering an extream scenrio: data shifts one after another, which means, one data from MNIST, followed by one data from Fashion MNIST, followed by one data from MNIST...<br>
 Accuracy of the outlier algorithm is 0 because it's always choosing the wrong expert. This extream scenrio will completely beat the outlier algorithm<br>
