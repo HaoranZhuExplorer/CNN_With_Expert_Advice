@@ -127,7 +127,7 @@ We now considering an extream scenrio: data shifts one after another, which mean
 Accuracy of the outlier algorithm is 0 because it's always choosing the wrong expert. This extream scenrio will completely beat the outlier algorithm<br>
 How about performance for the above algorithms?<br>
 ![performance](/images/performance_extream_case.png)<br>
- 
+ We can see algorithm3 still performs best among all algorithms, this algorithm is robust even to extream case.<br>
 
 
 
