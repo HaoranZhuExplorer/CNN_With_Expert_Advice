@@ -111,6 +111,10 @@ Algorithm1 with fixed share alpha's overall prediction accuracy for 8 data setti
 [0.95, 0.89, 0.88, 0.9, 0.94, 0.92, 0.89, 0.84]<br>
 We can see the performance has increased hugely even in static expert setting and it's almost perfert in all data settings.<br>
 
+## Performance comparisons of different algorithms
+![performance](/images/performance.png)<br>
+For static expert in all algorithms, alpha=0.<br>
+For fixed share expert in all algorithms, alpha is the same when data setting is the same. For 8 data settings, alpha = 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, which is the shifting ratio of each stream data.<br>
 
 
 
