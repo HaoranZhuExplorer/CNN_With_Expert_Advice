@@ -22,7 +22,10 @@ data_setting=5: M10000, F10000 <br>
 data_setting=6: M2000, F1000, M2000, F1000...<br>
 data_setting=7: M1000, F1000, M1000, F1000...<br>
 data_setting=8: M200, F1000, M100, F500, M200, F1000, M100, F500...<br>
-   
+
+## Different experts
+We have 2 experts in this project, one is CNN for MNIST dataset with a overall testing accuracy 0.99, another one is CNN for Fashion MNIST dataset with a overall accuracy 0.91.
+
 ## Brief introductions of my algorithms
 Inspired by the original expert advice algorithm[1][2], I designed 3 algorithms to solve this problem. Among these 3 algorithms, one of the algorithms can achieved a overall averaged accuracy of 0.9. 
 
