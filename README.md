@@ -63,7 +63,11 @@ Below is the schematic description of algorithm 1:<br>
 ![algorithm 1 figure 1](/images/algorithm1.png)<br>
 ![algorithm 2 figure 2](/images/algorithm1_2.png)<br><br>
 Algorithm1 with static expert(alpha=0)'s overall prediction accuracy for 8 data settings is:
+[0.5, 0.64, 0.5, 0.23, 0.5, 0.36, 0.5, 0.77]<br>
+For fixed share alpha, I set alpha = 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, which is the shifting ratio of each stream data.<br>
+Algorithm1 with fixed share alpha's overall prediction accuracy for 8 data settings is:
 [0.5, 0.64, 0.5, 0.23, 0.5, 0.36, 0.5, 0.77]
+
 
 
 References<br>
