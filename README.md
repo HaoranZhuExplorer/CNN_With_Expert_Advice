@@ -53,7 +53,7 @@ However, this idea makes loss functions meaningless: the number of prediction do
 
 While in the second case, the two experts predict 3, target is 5, which may means the second expert predicts data is 'shoes' in Fashion MNIST while the real class is  'pants' in Fashion MNIST. If we normalzie the predictions and insert them into loss functions, we will find the loss of first case is smaller, which means the first prediction is more accurate than the second prediction. While actually it's not true, the two predictions of corrensponding data class are all wrong, the loss should be the same. Thus, normalization is wrong<br>
 
-## Algorithm 1
+### Algorithm 1
 Thus here comes algorithm 1: I change the loss function to 0/1 loss. If prediction of an expert is not the same as real target, then loss will be the same, loss is 1. Otherwise, prediction is correct, loss will be 0.<br>
 The weights of experts are initialized the same as the oringinal algorithm: 1/n.
 Since weight may not be an integar, we can not simply make the weighted result of each experts' predictions as the final weighted prediction. For example, prediction of expert 1 for Fashion mnist is 3, which means 'shoes', prediction of expert 2 for MNIST is 7, which means 'number 7 in MNIST', weights for the two experts are all 1/2. The weighted result 1/2\*3+1/2\*7=5 makes no sense, because numbers in MNIST and items in Fashion mnist are not the same classes, we can not simply get weighted sum of two different classes.<br>
@@ -68,8 +68,8 @@ For fixed share alpha, I set alpha = 3.0/20000, 10.0/15000, 18.0/20000, 25.0/120
 Algorithm1 with fixed share alpha's overall prediction accuracy for 8 data settings is:<br>
 [0.5, 0.64, 0.5, 0.23, 0.5, 0.36, 0.5, 0.77]<br>
 
-## Algorithm 2
-The performance of algorithm when is no better than keep using one expert for all trials, this is because for simple variations of 0/1 loss, weights for different experts are difficult to change. If you investigate of weights, you can see weights are easily to converge at 0.5/0.5, which means it can not update as it should be.<br>
+### Algorithm 2
+The performance of algorithm 1 when is no better than keep using one expert for all trials, this is because for simple variations of 0/1 loss, weights for different experts are difficult to change. If you investigate of weights, you can see weights are easily to converge at 0.5/0.5, which means it can not update as it should be.<br>
 In order to avoid drawbacks of Algorithm 1, I think a better solution is to design a better loss function, rather than 0/1 loss.<br>
 Thus here comes algorithm2: Instead of using prediction of specific class in each expert as input to loss function, I use two experts' last layer softmax 1\*10 output vector as input to loss function.<br>
 Loss function is set to be MSE loss of two input vectors.<br>
@@ -82,7 +82,30 @@ Algorithm1 with static expert(alpha=0)'s overall prediction accuracy for 8 data 
 For fixed share alpha, I set alpha = 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, 3.0/20000, 10.0/15000, 18.0/20000, 25.0/12000, which is the shifting ratio of each stream data.<br>
 Algorithm1 with fixed share alpha's overall prediction accuracy for 8 data settings is:<br>
 [0.95, 0.88, 0.82, 0.87, 0.94, 0.91, 0.87, 0.73]<br>
-We can see the performance has increased hugely with exceptions for a few classes.<br>
+We can see the performance has increased hugely with exceptions for few classes.<br>
+
+### Algorithm 3
+Although performance of algorithm 2 has increased hugely, it's still perfect for few classes. I guess the possibile reason is: in algorithm 2, we always take best experts' prediction into final consideration, never get a weighted result from other experts.<br> 
+Think about the following circumstance: <br>
+we have two experts, expert 1 has higher weight than expert 2, suppose expert 1's weight is 0.51 expert 2's weight is 0.49. But the inner possibility of classes in expert 1 is realatively equal. Suppose the class with highest possibility is 0.2.<br>
+While expert 2's inner possibilities of classes differ hugely, the highest possibility of a class in expert 2 is 0.99.<br>
+Between expert1's 0.2 possibility of class in expert 1 and expert2's 0.99 possibility of class in expert 2, what should we choose? I think we need to consider expert 2's prediction into our final prediction even though it has a slightly lower weight.<br>
+We need to get a weighted sum of all experts predictions, but as I said in algorithm 2, we can not simply sum two expert's predictions together, since these two experts' is good at different tasks for different datasets. It's meaningless to simply add possibility of MNIST and Fashion MNIST together.<br>
+My solution is to add more values to experts' softmax output vectors.<br>
+Before the output of expert1 is 10*1 vector, now I add extra 10 values in the vector, all values are 0. Now the vector's shape becomes 20*1:<br>
+[p1_1, p1_2, ..., p1_10] -> [p1_1, p1_2, ..., p_1_10, 0, 0, 0, ..., 0]<br>
+Now the vectors become possibility of all classes in all experts. Since expert1 is not designed for classes in expert 2, we just simply suppose the possibility for classes of expert2 is 0 in expert1's prediction.<br>
+And we add extra 10 values in expert2's 10*1 vector:
+[p2_1, p2_2, ..., p2_10] -> [0, 0, 0, ..., 0, p2_1, p2_2, ..., p2_10]<br>
+Please notice that the possition to add 10 extra values must be different, they need to be added to the front of vector.<br>
+Below is a schematic description of algorithm 3:<br>
+![algorithm 3 figure 1](/images/algorithm3.png)<br>
+![algorithm 3 figure 2](/images/algorithm3_2.png)<br>
+
+
+
+
+
 
 References<br>
 [1] C. Monteleoni, Learning with Online Constraints: Shifting Concepts and Active Learning,” PhD Thesis, MIT, 2006.<br>
