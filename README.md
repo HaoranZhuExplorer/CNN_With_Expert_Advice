@@ -9,6 +9,7 @@ CNN with expert advice is used for the following online learning scenario: the d
 You can see 'script.py' or 'script.ipynb' for code details.<br>
 For 'script.py', simply run:<br>
 `python script.py`
+For 'script.ipynb', you can import it into appropriate apps to run it.
 
 ## Brief introductions of my algorithms
 Inspired by the original expert advice algorithm[1][2], I designed 3 algorithms to solve this problem. Among these 3 algorithms, one of the algorithms can achieved a overall averaged accuracy of 0.9. 
