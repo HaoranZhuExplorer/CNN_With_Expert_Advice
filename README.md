@@ -20,8 +20,9 @@ step2: make prediction with current experts and their current weights<br>
 step3: update loss and update middle weights<br>
 step4: update shared weights<br>
 
-![GitHub Logo](/images/original_expert_advice_algorithm.png)
+![Expert Advice](/images/original_expert_advice_algorithm.png)
 
+But we need to do some changes to the original algorithm. Since the weights updating process is based on changes of loss between predictions and real target y\_t
 
 References<br>
 [1] C. Monteleoni, Learning with Online Constraints: Shifting Concepts and Active Learning,” PhD Thesis, MIT, 2006.<br>
