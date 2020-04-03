@@ -48,7 +48,8 @@ Since weight may not be an integar, we can not simply make the weighted result o
 So in algorithm1, the final prediction will apply the prediction of expert which has highest weight.<br>
 All other steps are the same as the oringal expert advice algorithm.<br>
 Below is the schematic description of algorithm 1:<br>
-![loss functions](/images/algorithm1.png)<br>
+![algorithm 1 figure 1](/images/algorithm1.png)<br>
+![algorithm 2 figure 2](/images/algorithm1_2.png)<br>
 
 
 References<br>
