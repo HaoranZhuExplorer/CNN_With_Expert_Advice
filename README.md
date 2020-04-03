@@ -22,7 +22,7 @@ step4: update shared weights<br>
 
 
 ![Expert Advice](/images/original_expert_advice_algorithm.png)<br>
-Figure from [1]<br>
+Figure from M. Herbster and Manfred K. Warmuth, Tracking the best expert[1]<br>
 
 In this code settings, we simply have two experts: one is a trained CNN with testing accuracy of 0.99 for mnist dataset, another is a trained CNN with testing accuray of 0.91. The stream data is from testing dataset of MNIST and Fashion MNIST.
 
